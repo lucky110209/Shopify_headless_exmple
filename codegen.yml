@@ -1,0 +1,11 @@
+schema:
+  - ${SHOP}/api/graphql:
+      headers:
+        X-Shopify-Storefront-Access-Token: ${X_SHOPIFY_STOREFRONT_ACCESS_TOKEN}
+documents: ./graphql/**/*.graphql
+generates:
+  ./generated/graphql.tsx:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo

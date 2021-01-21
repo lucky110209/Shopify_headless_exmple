@@ -1,0 +1,55 @@
+fragment product on Product {
+  id
+  title
+  handle
+  descriptionHtml
+  images(first: 10) {
+    edges {
+      node {
+        altText
+        transformedSrc
+      }
+    }
+  }
+  options {
+    id
+    name
+    values
+  }
+  priceRange {
+    minVariantPrice {
+      amount
+      currencyCode
+    }
+    maxVariantPrice {
+      amount
+      currencyCode
+    }
+  }
+  totalInventory
+  variants(first: 250) {
+    edges {
+      node {
+        id
+        title
+        selectedOptions {
+          name
+          value
+        }
+        image {
+          transformedSrc
+          altText
+        }
+        price
+        compareAtPrice
+        quantityAvailable
+      }
+    }
+  }
+}
+
+query product($handle: String!) {
+  productByHandle(handle: $handle) {
+    ...product
+  }
+}

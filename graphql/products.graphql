@@ -1,0 +1,65 @@
+fragment products on ProductConnection {
+  edges {
+    node {
+      id
+      title
+      handle
+      description
+      createdAt
+      images(first: 1) {
+        edges {
+          node {
+            transformedSrc
+            altText
+          }
+        }
+      }
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+        maxVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+      totalInventory
+      variants(first: 250) {
+        edges {
+          node {
+            id
+            compareAtPrice
+          }
+        }
+      }
+    }
+    cursor
+  }
+  pageInfo {
+    hasNextPage
+    hasPreviousPage
+  }
+}
+
+query products(
+  $first: Int
+  $last: Int
+  $after: String
+  $before: String
+  $query: String!
+  $sortKey: ProductSortKeys!
+  $reverse: Boolean!
+) {
+  products(
+    first: $first
+    last: $last
+    after: $after
+    before: $before
+    query: $query
+    sortKey: $sortKey
+    reverse: $reverse
+  ) {
+    ...products
+  }
+}

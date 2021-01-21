@@ -1,0 +1,67 @@
+{
+  "name": "shopify-headless",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write .",
+    "dev": "ts-node --project tsconfig.server.json server/index.ts",
+    "build:server": "tsc --project tsconfig.server.json",
+    "build:next": "next build",
+    "build": "yarn codegen && yarn build:next && yarn build:server",
+    "start": "NODE_ENV=production node dist/index.js",
+    "codegen": "graphql-codegen -r dotenv/config",
+    "scan:code": "sonar-scanner"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@types/detect-node": "^2.0.0",
+    "@zeit/next-css": "^1.0.1",
+    "apollo-boost": "^0.4.9",
+    "apollo-client": "^2.6.10",
+    "apollo-link": "^1.2.14",
+    "bulma": "^0.9.1",
+    "detect-node": "^2.0.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^15.4.0",
+    "graphql-tag": "^2.11.0",
+    "graphql-tools": "^7.0.2",
+    "graphql-type-json": "^0.3.2",
+    "husky": "^4.3.6",
+    "isomorphic-fetch": "^3.0.0",
+    "lint-staged": "^10.5.3",
+    "next": "10.0.3",
+    "node-sass-import": "^2.0.1",
+    "react": "17.0.1",
+    "react-apollo": "^3.1.5",
+    "react-bulma-components": "^3.4.0",
+    "react-dom": "17.0.1",
+    "react-elastic-carousel": "^0.10.0",
+    "recoil": "^0.1.2",
+    "styled-components": "^5.2.1"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.19.4",
+    "@graphql-codegen/typescript": "^1.19.0",
+    "@graphql-codegen/typescript-operations": "^1.17.12",
+    "@graphql-codegen/typescript-react-apollo": "^2.2.1",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.9",
+    "@types/isomorphic-fetch": "^0.0.35",
+    "@types/node": "^14.14.13",
+    "@types/react": "^17.0.0",
+    "file-loader": "^6.2.0",
+    "prettier": "2.2.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3",
+    "url-loader": "^4.1.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format && yarn scan:code"
+    }
+  }
+}

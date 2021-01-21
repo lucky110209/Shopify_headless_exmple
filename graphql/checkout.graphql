@@ -1,0 +1,120 @@
+fragment checkout on Checkout {
+  id
+  webUrl
+  subtotalPriceV2 {
+    amount
+    currencyCode
+  }
+  totalTaxV2 {
+    amount
+    currencyCode
+  }
+  totalPriceV2 {
+    amount
+    currencyCode
+  }
+  orderStatusUrl
+  lineItems(first: 250) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      node {
+        id
+        title
+        variant {
+          id
+          title
+          product {
+            handle
+          }
+          image {
+            transformedSrc
+          }
+          priceV2 {
+            amount
+            currencyCode
+          }
+        }
+        quantity
+      }
+    }
+  }
+}
+
+mutation checkoutCreate {
+  checkoutCreate(input: {}) {
+    userErrors {
+      message
+      field
+    }
+    checkout {
+      ...checkout
+    }
+  }
+}
+
+mutation checkoutLineItemsReplace(
+  $checkoutId: ID!
+  $lineItems: [CheckoutLineItemInput!]!
+) {
+  checkoutLineItemsReplace(checkoutId: $checkoutId, lineItems: $lineItems) {
+    userErrors {
+      message
+      field
+    }
+    checkout {
+      ...checkout
+    }
+  }
+}
+
+mutation checkoutLineItemsAdd(
+  $checkoutId: ID!
+  $lineItems: [CheckoutLineItemInput!]!
+) {
+  checkoutLineItemsAdd(checkoutId: $checkoutId, lineItems: $lineItems) {
+    userErrors {
+      message
+      field
+    }
+    checkout {
+      ...checkout
+    }
+  }
+}
+
+mutation checkoutLineItemsUpdate(
+  $checkoutId: ID!
+  $lineItems: [CheckoutLineItemUpdateInput!]!
+) {
+  checkoutLineItemsUpdate(checkoutId: $checkoutId, lineItems: $lineItems) {
+    userErrors {
+      message
+      field
+    }
+    checkout {
+      ...checkout
+    }
+  }
+}
+mutation checkoutLineItemsRemove($checkoutId: ID!, $lineItemIds: [ID!]!) {
+  checkoutLineItemsRemove(checkoutId: $checkoutId, lineItemIds: $lineItemIds) {
+    userErrors {
+      message
+      field
+    }
+    checkout {
+      ...checkout
+    }
+  }
+}
+
+query checkout($checkoutId: ID!) {
+  node(id: $checkoutId) {
+    ... on Checkout {
+      ...checkout
+    }
+  }
+}
